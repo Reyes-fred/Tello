@@ -3,5 +3,5 @@ echo "Welcome to Acat Playground"
 echo
 
 
-pip installtellopy
-
+pip install tellopy
+pip install paho-mqtt
