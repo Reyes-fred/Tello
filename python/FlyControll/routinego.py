@@ -5,7 +5,7 @@ import tellopy
 def handler(event, sender, data, **args):
    drone = sender
    if event is drone.EVENT_FLIGHT_DATA:
-      print(data)
+      print(data)   
 
 def tellofly():
    drone = tellopy.Tello()
@@ -16,13 +16,7 @@ def tellofly():
      drone.wait_for_connection(60.0)
      drone.takeoff()
      sleep(5)
-     drone.forward(30)
-     sleep(5)
-     drone.right(30)
-     sleep(5)
-     drone.back(30)
-     sleep(5)
-     drone.left(30)
+     drone.go(20,20,20,20)
      sleep(5)
      drone.land()
    except Exception as ex:
