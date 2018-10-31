@@ -10,7 +10,7 @@ import platforms.xdk110;
 
 // Create a wireless connection named 'wireless'
 setup wireless : WLAN {
-	ssid = "pass";
+	ssid = "-";
 	ipConfiguration = Dhcp();
     authentification = Personal(psk = "");
 }
@@ -35,22 +35,22 @@ every button_two.pressed {
 }
 
 every accelerometer.any_motion{
-	 if(accelerometer.x_axis.read()>50){ //X
+	 if(accelerometer.x_axis.read()>5000){ //X
 	 	messaging.action.write(`right ${accelerometer.x_axis.read()}`);
 	 	
-	 }else if(accelerometer.x_axis.read()<50){
+	 }else if(accelerometer.x_axis.read()<5000){
 	 	messaging.action.write(`left ${accelerometer.x_axis.read()}`);
 	 		
-	 }else if(accelerometer.y_axis.read()>50){//Y
+	 }else if(accelerometer.y_axis.read()>5000){//Y
 	 	messaging.action.write(`left ${accelerometer.y_axis.read()}`);
 	 		
-	 }else if(accelerometer.y_axis.read()<50){
+	 }else if(accelerometer.y_axis.read()<5000){
 	 	messaging.action.write(`left ${accelerometer.y_axis.read()}`);
 	 		
-	 }else if(accelerometer.z_axis.read()>50){//Z
+	 }else if(accelerometer.z_axis.read()>5000){//Z
 	 	messaging.action.write(`left ${accelerometer.z_axis.read()}`);
 	 		
-	 }else if(accelerometer.z_axis.read()<50){
+	 }else if(accelerometer.z_axis.read()<5000){
 	 	messaging.action.write(`left ${accelerometer.z_axis.read()}`);
 	 		
 	 }
