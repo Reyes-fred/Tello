@@ -10,9 +10,9 @@ import platforms.xdk110;
 
 // Create a wireless connection named 'wireless'
 setup wireless : WLAN {
-	ssid = "Totalplay-4B80";
+	ssid = "Centraal-Comunidad";
 	ipConfiguration = Dhcp();
-    authentification = Personal(psk = "4B80574BFbJFrCDr");
+    authentification = Personal(psk = "hoyemprendo");
 }
 
 // Create a MQTT instance
@@ -33,4 +33,50 @@ every button_one.pressed {
 every button_two.pressed {
 	messaging.action.write("land"); //Define your message
 }
+
+every accelerometer.any_motion{
+	 if(accelerometer.x_axis.read()>50){ //X
+	 	messaging.action.write(`right ${accelerometer.x_axis.read()}`);
+	 	
+	 }else if(accelerometer.x_axis.read()<50){
+	 	messaging.action.write(`left ${accelerometer.x_axis.read()}`);
+	 		
+	 }else if(accelerometer.y_axis.read()>50){//Y
+	 	messaging.action.write(`left ${accelerometer.y_axis.read()}`);
+	 		
+	 }else if(accelerometer.y_axis.read()<50){
+	 	messaging.action.write(`left ${accelerometer.y_axis.read()}`);
+	 		
+	 }else if(accelerometer.z_axis.read()>50){//Z
+	 	messaging.action.write(`left ${accelerometer.z_axis.read()}`);
+	 		
+	 }else if(accelerometer.z_axis.read()<50){
+	 	messaging.action.write(`left ${accelerometer.z_axis.read()}`);
+	 		
+	 }
+	 
+}
+
+
+every accelerometer.single_tap{
+	 	messaging.action.write("flip f");	
+}
+
+every accelerometer.double_tap{
+	 	messaging.action.write("flip b");	
+}
+
+every 10 milliseconds {
+	
+	 if(gyroscope.z_axis.read()>50){ //X
+	 	messaging.action.write(`cw ${accelerometer.z_axis.read()}`);
+	 	
+	 }else if(accelerometer.z_axis.read()<50){
+	 	messaging.action.write(`ccww  ${accelerometer.z_axis.read()}`);
+	 		
+	 }
+	
+}
+
+
 
