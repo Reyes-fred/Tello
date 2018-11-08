@@ -13,9 +13,9 @@ var y: int32;
 
 // Create a wireless connection named 'wireless'
 setup wireless : WLAN {
-	ssid = "Totalplay-4B80";
+	ssid = "-";
 	ipConfiguration = Dhcp();
-    authentification = Personal(psk = "4B80574BFbJFrCDr");
+    authentification = Personal(psk = "");
 }
 
 // Create a MQTT instance
@@ -43,22 +43,22 @@ every button_two.pressed {
 
 every accelerometer.any_motion{
 	 if(accelerometer.x_axis.read()>500 && x!=1){ //X
-	 	messaging.action.write(`right ${accelerometer.x_axis.read()}`);
+	 	messaging.action.write("right");
 	 	x=1;
 	 }else if(accelerometer.x_axis.read()<500 && x!=2){
-	 	messaging.action.write(`left ${accelerometer.x_axis.read()}`);
+	 	messaging.action.write("left");
 	 	x=2;	
 	 }else if(accelerometer.y_axis.read()>500 && x!=3){//Y
-	 	messaging.action.write(`left ${accelerometer.y_axis.read()}`);
+	 	messaging.action.write("forward");
 	 	x=3;
 	 }else if(accelerometer.y_axis.read()<500 && x!=4){
-	 	messaging.action.write(`left ${accelerometer.y_axis.read()}`);
+	 	messaging.action.write("back");
 	 	x=4;	
 	 }else if(accelerometer.z_axis.read()>500 && x!=5){//Z
-	 	messaging.action.write(`left ${accelerometer.z_axis.read()}`);
+	 	messaging.action.write("up");
 	 	x=5;
 	 }else if(accelerometer.z_axis.read()<500 && x!=6){
-	 	messaging.action.write(`left ${accelerometer.z_axis.read()}`);
+	 	messaging.action.write("down");
 	 	x=6;
 	 }
 	 
@@ -75,10 +75,10 @@ every accelerometer.double_tap{
 every 10 milliseconds {
 	
 	 if(gyroscope.z_axis.read()>400 && y!=1 ){ //X
-	 	messaging.action.write(`cw ${accelerometer.z_axis.read()}`);
+	 	messaging.action.write("cw");
 	 	y=1;
 	 }else if(accelerometer.z_axis.read()<400 && y!=2){
-	 	messaging.action.write(`ccww  ${accelerometer.z_axis.read()}`);
+	 	messaging.action.write("ccww");
 	 	y=2;
 	 }
 	
