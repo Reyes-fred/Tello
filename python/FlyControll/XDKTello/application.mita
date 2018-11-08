@@ -41,45 +41,46 @@ every button_two.pressed {
 	messaging.action.write("land"); //Define your message
 }
 
-every accelerometer.any_motion{
-	 if(accelerometer.x_axis.read()>500 && x!=1){ //X
-	 	messaging.action.write("right");
+setup Gyroscope_BMG160 {
+  range = Range_250s;
+  bandwidth = Bw_12Hz;
+}
+setup Gyroscope_BMI160 {
+  range = Range_250s;
+  bandwidth = BW_10_7Hz;
+}
+
+every 100 milliseconds {
+      var x = gyroscope.x_axis.read();
+      var y = gyroscope.y_axis.read();
+      var z = gyroscope.z_axis.read();
+      println(`x: ${x}    y: ${y}    z: ${z}`);
+      if(x>200 && x!=1){ //X
+        println('right');
+	 	//messaging.action.write("right");
 	 	x=1;
-	 }else if(accelerometer.x_axis.read()<500 && x!=2){
-	 	messaging.action.write("left");
+	 }else if(x<-200 && x!=2){
+	 	println('left');
+	 	//messaging.action.write("left");
 	 	x=2;	
-	 }else if(accelerometer.y_axis.read()>500 && x!=3){//Y
-	 	messaging.action.write("forward");
+	 }else if(y>200 && x!=3){//Y
+	 	println('forward');
+	 	//messaging.action.write("forward");
 	 	x=3;
-	 }else if(accelerometer.y_axis.read()<500 && x!=4){
-	 	messaging.action.write("back");
+	 }else if(y<-200 && x!=4){
+	 	println('back');
+	 	//messaging.action.write("back");
 	 	x=4;	
-	 }else if(accelerometer.z_axis.read()>500 && x!=5){//Z
-	 	messaging.action.write("up");
+	 }else if(z>200 && x!=5){//Z
+	 	println('cw');
+	 	//messaging.action.write("up");
 	 	x=5;
-	 }else if(accelerometer.z_axis.read()<500 && x!=6){
-	 	messaging.action.write("down");
+	 }else if(z<-200 && x!=6){
+	 	println('ccww');
+	 	//messaging.action.write("down");
 	 	x=6;
+	 }else if(x==0){
+	 	println('stay');
 	 }
 	 
-}
-
-/*every accelerometer.single_tap{
-	 	messaging.action.write("flip f");	
-}
-
-every accelerometer.double_tap{
-	 	messaging.action.write("flip b");	
-}*/
-
-every 10 milliseconds {
-	
-	 if(gyroscope.z_axis.read()>400 && y!=1 ){ //X
-	 	messaging.action.write("cw");
-	 	y=1;
-	 }else if(accelerometer.z_axis.read()<400 && y!=2){
-	 	messaging.action.write("ccww");
-	 	y=2;
-	 }
-	
-}
+  }
