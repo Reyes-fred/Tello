@@ -9,12 +9,13 @@ package main;
 import platforms.xdk110;
 
 var ban: int32;
+var banlux: int32;
 
 // Create a wireless connection named 'wireless'
 setup wireless : WLAN {
-	ssid = "-";
+	ssid = "Centraal-Comunidad";
 	ipConfiguration = Dhcp();
-    authentification = Personal(psk = "");
+    authentification = Personal(psk = "hoyemprendo");
 }
 
 // Create a MQTT instance
@@ -28,7 +29,7 @@ setup messaging : MQTT {
 
 every XDK110.startup {
 	ban = 0;//1 Derecha, 2 Izquierda, 3 Adelante, 4 Atras, 5 Izquierda y 6 Derecha
-	
+	banlux = 0;
 }
 
 // When button one is pressed, send text via MQTT
@@ -97,8 +98,12 @@ every 100 milliseconds {
 	 	ban=6;
 	 }
 	 
-	 if(light.intensity.read() <40){
+	 if(light.intensity.read() <100 && banlux==0){
 	 	messaging.action.write("flip");
+	 	banlux=1;
 	 }
 	 
+  }
+  every 30 seconds{
+  	banlux=0;
   }
