@@ -8,8 +8,7 @@
 package main;
 import platforms.xdk110;
 
-var x: int32;
-var y: int32;
+var ban: int32;
 
 // Create a wireless connection named 'wireless'
 setup wireless : WLAN {
@@ -28,8 +27,8 @@ setup messaging : MQTT {
 }
 
 every XDK110.startup {
-	x = 0;//1 Derecha, 2 Izquierda, 3 Adelante, 4 Atras, 5 Arriba y 6 Abajo
-	y = 0;
+	ban = 0;//1 Derecha, 2 Izquierda, 3 Adelante, 4 Atras, 5 Izquierda y 6 Derecha
+	
 }
 
 // When button one is pressed, send text via MQTT
@@ -50,37 +49,56 @@ setup Gyroscope_BMI160 {
   bandwidth = BW_10_7Hz;
 }
 
+//Accelerometer
+	//Fix 3.4.0 - src-gen/SensorAccelerometer.c
+	//in static void BMA280_IsrCallback, replace CmdProcessor_Enqueue with CmdProcessor_EnqueueFromIsr
+    //in SensorAccelerometer_Enable, replace INTR_DISABLE with INTR_ENABLE
+	
+setup accelerometer{
+	
+	
+}
+every accelerometer.single_tap{
+	messaging.action.write("up");
+}
+every accelerometer.double_tap{
+	messaging.action.write("down");
+}
+
+
 every 100 milliseconds {
       var x = gyroscope.x_axis.read();
       var y = gyroscope.y_axis.read();
       var z = gyroscope.z_axis.read();
-      println(`x: ${x}    y: ${y}    z: ${z}`);
-      if(x>200 && x!=1){ //X
-        println('right');
-	 	//messaging.action.write("right");
-	 	x=1;
-	 }else if(x<-200 && x!=2){
-	 	println('left');
-	 	//messaging.action.write("left");
-	 	x=2;	
-	 }else if(y>200 && x!=3){//Y
-	 	println('forward');
-	 	//messaging.action.write("forward");
-	 	x=3;
-	 }else if(y<-200 && x!=4){
-	 	println('back');
-	 	//messaging.action.write("back");
-	 	x=4;	
-	 }else if(z>200 && x!=5){//Z
-	 	println('cw');
-	 	//messaging.action.write("up");
-	 	x=5;
-	 }else if(z<-200 && x!=6){
-	 	println('ccww');
-	 	//messaging.action.write("down");
-	 	x=6;
-	 }else if(x==0){
-	 	println('stay');
+      //println(`x: ${x}    y: ${y}    z: ${z}`);
+      if(x>200 && ban!=1){ //X
+        //println('right');
+	 	messaging.action.write("right");
+	 	ban=1;
+	 }else if(x<-200 && ban!=2){
+	 	//println('left');
+	 	messaging.action.write("left");
+	 	ban=2;	
+	 }else if(y>200 && ban!=3){//Y
+	 	//println('forward');
+	 	messaging.action.write("forward");
+	 	ban=3;
+	 }else if(y<-200 && ban!=4){
+	 	//println('back');
+	 	messaging.action.write("back");
+	 	ban=4;	
+	 }else if(z>200 && ban!=5){//Z
+	 	//println('cw');
+	 	messaging.action.write("cw");
+	 	ban=5;
+	 }else if(z<-200 && ban!=6){
+	 	//println('ccww');
+	 	messaging.action.write("ccww");
+	 	ban=6;
+	 }
+	 
+	 if(light.intensity.read() <40){
+	 	messaging.action.write("flip");
 	 }
 	 
   }
