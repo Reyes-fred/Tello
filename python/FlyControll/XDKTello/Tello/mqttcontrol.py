@@ -16,7 +16,7 @@ def handler(event, sender, data, **args):
       print(data)
 
 def subscribeTelloAction(mosq, obj, msg):
-   print "Command %s" % msg.payload
+   print("Command %s" % msg.payload)
    if msg.payload == "takeoff":
       drone.takeoff()
       sleep(5)
@@ -24,6 +24,24 @@ def subscribeTelloAction(mosq, obj, msg):
       drone.land()
       sleep(5)
       drone.quit()
+   elif msg.payload == "left":
+      drone.left(20)
+      sleep(2)
+   elif msg.payload == "right":
+      drone.right(20)
+      sleep(2)
+   elif msg.payload == "forward":
+      drone.forward(20)
+      sleep(2)
+   elif msg.payload == "back":
+      drone.back(20)
+      sleep(2)
+   elif msg.payload == "cw":
+      drone.cw(90)
+      sleep(2)
+   elif msg.payload == "ccww":
+      drone.ccww(90)
+      sleep(2)
 
 def subscribeTello():
    mqttclient = paho.Client()
