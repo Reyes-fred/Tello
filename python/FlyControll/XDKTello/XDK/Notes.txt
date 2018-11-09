@@ -1,0 +1,6 @@
+
+Fix 3.4.0 
+
+  Accelerometer- src-gen/SensorAccelerometer.c
+  in static void BMA280_IsrCallback, replace CmdProcessor_Enqueue with CmdProcessor_EnqueueFromIsr
+  in SensorAccelerometer_Enable, replace INTR_DISABLE with INTR_ENABLE
