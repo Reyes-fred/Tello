@@ -71,7 +71,7 @@ every 100 milliseconds {
       var x = gyroscope.x_axis.read();
       var y = gyroscope.y_axis.read();
       var z = gyroscope.z_axis.read();
-      //println(`x: ${x}    y: ${y}    z: ${z}`);
+      
       if(x>200 && ban!=1){ //X
         //println('right');
 	 	messaging.action.write("right");
@@ -98,12 +98,14 @@ every 100 milliseconds {
 	 	ban=6;
 	 }
 	 
-	 if(light.intensity.read() <100 && banlux==0){
+	 if(light.intensity.read() < 100 && banlux!=1){
 	 	messaging.action.write("flip");
 	 	banlux=1;
+	 	
 	 }
 	 
   }
-  every 30 seconds{
+  every 40 seconds{
   	banlux=0;
+  	
   }
