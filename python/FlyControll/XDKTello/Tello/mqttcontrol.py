@@ -25,23 +25,32 @@ def subscribeTelloAction(mosq, obj, msg):
       sleep(5)
       drone.quit()
    elif msg.payload == "left":
-      drone.left(20)
-      sleep(2)
+      drone.left(30)
+      sleep(4)
    elif msg.payload == "right":
-      drone.right(20)
-      sleep(2)
+      drone.right(30)
+      sleep(4)
    elif msg.payload == "forward":
-      drone.forward(20)
-      sleep(2)
+      drone.forward(30)
+      sleep(4)
    elif msg.payload == "back":
-      drone.back(20)
-      sleep(2)
+      drone.back(30)
+      sleep(4)
+   elif msg.payload == "up":
+      drone.up(30)
+      sleep(4)
+   elif msg.payload == "down":
+      drone.down(30)
+      sleep(4)
    elif msg.payload == "cw":
-      drone.cw(90)
-      sleep(2)
+      drone.cw(180)
+      sleep(4)
    elif msg.payload == "ccww":
-      drone.ccww(90)
-      sleep(2)
+      drone.ccw(180)
+      sleep(4)
+   elif msg.payload == "flip":
+      drone.flip(r)
+      sleep(4)
 
 def subscribeTello():
    mqttclient = paho.Client()
