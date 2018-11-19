@@ -13,9 +13,9 @@ var banlux: int32;
 
 // Create a wireless connection named 'wireless'
 setup wireless : WLAN {
-	ssid = "Centraal-Comunidad";
+	ssid = "-";
 	ipConfiguration = Dhcp();
-    authentification = Personal(psk = "hoyemprendo");
+    authentification = Personal(psk = "");
 }
 
 // Create a MQTT instance
